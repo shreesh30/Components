@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import { Children } from "react";
 
 function Panel({ children, className, ...rest }) {
   const finalClassNames = classNames(
