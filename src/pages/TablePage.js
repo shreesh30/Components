@@ -17,7 +17,9 @@ function TablePage() {
     {
       label: "Score",
       render: (fruit) => fruit.score,
-      header: () => <th className="bg-red-500">Score</th>,
+      //   Need to add header in SortableTable component
+      //   header: () => <th className="bg-red-500">Score</th>,
+      sortValue: (fruit) => fruit.score,
     },
   ];
 
