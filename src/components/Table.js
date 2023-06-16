@@ -15,6 +15,9 @@ function Table({ data, config, keyFunc }) {
   });
 
   const renderedHeaders = config.map((column) => {
+    if (column.header) {
+      return column.header();
+    }
     return <th key={column.label}>{column.label}</th>;
   });
   return (
