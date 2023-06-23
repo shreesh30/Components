@@ -2,39 +2,71 @@ import { useReducer } from "react";
 import Button from "../components/Button";
 import Panel from "../components/Panel";
 
-const reducer = (state, action) => {};
+const INCREMENT_COUNT = "increment-count";
+const DECREMENT_COUNT = "decrement-count";
+const CHANGE_VALUE_T0_ADD = "change-value-to-add";
+const SUBMIT_VALUE_TO_ADD = "submit-value-to-add";
+// action - a map that always has a "type" property and in some cases the payload property(used to perform any operation on
+// the input passed by the user)
+const reducer = (state, action) => {
+  switch (action.type) {
+    case INCREMENT_COUNT:
+      return {
+        ...state,
+        count: state.count + 1,
+      };
+    case DECREMENT_COUNT:
+      return {
+        ...state,
+        count: state.count - 1,
+      };
+    case CHANGE_VALUE_T0_ADD:
+      return {
+        ...state,
+        valueToAdd: action.payload,
+      };
+    case SUBMIT_VALUE_TO_ADD:
+      return {
+        ...state,
+        count: state.count + state.valueToAdd,
+      };
+    default:
+      return state;
+  }
+};
 
 function CounterPage({ initialCount }) {
-  // const { count, increment } = useCounter(initialCount);
-
-  // const [count, setCount] = useState(initialCount);
-  // const [valueToAdd, setValueToAdd] = useState(0);
-
   // state-State variable, dispatch- function to change state, map(2nd argument)- initial values of the state
   const [state, dispatch] = useReducer(reducer, {
     count: initialCount,
     valueToAdd: 0,
   });
 
-  console.log(state);
-
   const increment = () => {
-    // setCount(count + 1);
+    dispatch({
+      type: INCREMENT_COUNT,
+    });
   };
 
   const decrement = () => {
-    // setCount(count - 1);
+    dispatch({
+      type: DECREMENT_COUNT,
+    });
   };
 
   const handleChange = (event) => {
     const value = parseInt(event.target.value) || 0;
-    // setValueToAdd(value);
+    dispatch({
+      type: CHANGE_VALUE_T0_ADD,
+      payload: value,
+    });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // setCount(count + valueToAdd);
-    // setValueToAdd(0);
+    dispatch({
+      type: SUBMIT_VALUE_TO_ADD,
+    });
   };
 
   return (
